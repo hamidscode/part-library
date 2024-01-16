@@ -1,15 +1,18 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpException, HttpStatus, Post } from "@nestjs/common";
+import { BookRequestDto } from "presentation/DTOs";
+import { BookRequestUseCase } from "application/use-cases";
 
 @ApiTags('library')
 @Controller('/')
 export class LibraryController {
-  constructor() {}
+  constructor(private readonly bookRequestUseCase: BookRequestUseCase) {}
 
   @Post('/request')
-  async request() {
+  @HttpCode(HttpStatus.OK)
+  async request(@Body() bookRequest: BookRequestDto) {
     try {
-      return { status: 'ok' };
+      return this.bookRequestUseCase.requestOneBook(bookRequest);
     } catch (error) {
       throw new HttpException(
         (error.response ? error.response : error.message) ?? error,

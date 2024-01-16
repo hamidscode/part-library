@@ -5,6 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { schemas } from 'domain/models';
 import { mongoConfig } from 'infrastructure/config';
 import { factories, mappers, repositories } from 'domain/services';
+import { commandHandlers } from 'application/services';
+import { useCases } from 'application/use-cases';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
@@ -22,8 +25,15 @@ import { factories, mappers, repositories } from 'domain/services';
       useFactory: mongoConfig,
     }),
     MongooseModule.forFeature(schemas),
+    CqrsModule.forRoot(),
   ],
   controllers: [...controllers],
-  providers: [...factories, ...mappers, ...repositories],
+  providers: [
+    ...factories,
+    ...mappers,
+    ...repositories,
+    ...commandHandlers,
+    ...useCases,
+  ],
 })
 export class LibraryModule {}
