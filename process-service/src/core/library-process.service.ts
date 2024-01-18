@@ -38,13 +38,13 @@ export class LibraryProcessService {
       const simulateFailedState = Math.random() > 0.75;
       if (simulateFailedState) {
         Logger.log(
-          `simulate unexpected Error. Failed to process book and no response from process service for book request: ${bookRequest.requested_book} with id: ${bookRequest.id}`,
+          `Simulate unexpected Error. Failed to process book and no response from process service for book request: ${bookRequest.requested_book} with id: ${bookRequest.id}`,
         );
         return reject(new Error('Failed to process book'));
       }
       const timeoutValue = Math.floor(Math.random() * 60);
       Logger.log(
-        `simulate response time ${timeoutValue} seconds to process book request: ${bookRequest.requested_book} with id: ${bookRequest.id}`,
+        `Simulate response time ${timeoutValue} seconds to process book request: ${bookRequest.requested_book} with id: ${bookRequest.id}`,
       );
 
       setTimeout(async () => {
