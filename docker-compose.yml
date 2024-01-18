@@ -84,8 +84,6 @@ services:
     build:
       context: ./process-service
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     networks:
       - part-library
     depends_on:

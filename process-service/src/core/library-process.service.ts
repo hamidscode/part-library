@@ -39,7 +39,7 @@ export class LibraryProcessService {
   }
   private processBook(bookRequest: BookRequestInterface): Promise<void> {
     return new Promise((resolve, reject) => {
-      const simulateFailedState = Math.random() > 0.4;
+      const simulateFailedState = Math.random() > 0.6;
       if (simulateFailedState) {
         Logger.log(
           `Simulate unexpected Error. Failed to process book and no response from process service for book request: ${bookRequest.requested_book} with id: ${bookRequest.id}`,
