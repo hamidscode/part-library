@@ -14,5 +14,67 @@ services:
     networks:
       - part-library
 
+  redis:
+    image: redis:7.2.4-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - part-library
+    volumes:
+      - redis_volume:/data
+
+  rabbitmq:
+    image: rabbitmq:3.12.12-management-alpine
+    hostname: message_broker_rabbit
+    networks:
+      - part-library
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+    volumes:
+      - rmq_volume:/var/lib/rabbitmq
+      - rmq_log_volume:/var/log/rabbitmq
+
+  dozzle:
+    image: amir20/dozzle:latest
+    networks:
+      - part-library
+    ports:
+      - "8080:8080"
+    environment:
+      DOZZLE_LEVEL: debug
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  request-service:
+    image: part-request-service
+    build:
+      context: ./request-service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - part-library
+    depends_on:
+      - mongo
+      - redis
+      - rabbitmq
+    environment:
+      DEBUG: "true"
+      NODE_ENV: "development"
+      ENV_FILES: "false"
+      LOG_DEBUG: "*"
+      LOG_LEVEL: "trace"
+      PORT: "3000"
+      MONGO_DB: "reservation"
+      MONGO_HOST: "mongo:27017"
+      MONGO_QUERY: "authSource=admin"
+
 volumes:
   mongo_volume:
+  redis_volume:
+  rmq_volume:
+  rmq_log_volume:
