@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -26,6 +26,38 @@ export class LibraryController {
 
   @Post('/request')
   @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    schema: {
+      type: 'object',
+      required: ['id', 'status', 'requesterName', 'requestedBook', 'createdAt'],
+      properties: {
+        id: {
+          type: 'string',
+        },
+        status: {
+          type: 'string',
+          enum: ['pending', 'reserved', 'rejected', 'returned'],
+        },
+        requesterName: {
+          type: 'string',
+        },
+        requestedBook: {
+          type: 'string',
+        },
+        createdAt: {
+          type: 'string',
+        },
+        updatedAt: {
+          type: 'string',
+        },
+        tags: {
+          type: 'array',
+          items: { type: 'string' },
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
   async request(@Body() bookRequest: BookRequestDto) {
     try {
       return this.bookRequestUseCase.requestOneBook(bookRequest);
@@ -39,6 +71,44 @@ export class LibraryController {
 
   @Get('request/:id')
   @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    schema: {
+      type: 'object',
+      required: ['id', 'status', 'requesterName', 'requestedBook', 'createdAt'],
+      properties: {
+        id: {
+          type: 'string',
+        },
+        status: {
+          type: 'string',
+          enum: ['pending', 'reserved', 'rejected', 'returned'],
+        },
+        requesterName: {
+          type: 'string',
+        },
+        requestedBook: {
+          type: 'string',
+        },
+        createdAt: {
+          type: 'string',
+        },
+        updatedAt: {
+          type: 'string',
+        },
+        reservedAt: {
+          type: 'string',
+        },
+        returnedAt: {
+          type: 'string',
+        },
+        tags: {
+          type: 'array',
+          items: { type: 'string' },
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
   async getRequestById(@Param('id') id: string) {
     try {
       return this.bookRequestUseCase.getRequestById(id);
@@ -52,6 +122,44 @@ export class LibraryController {
 
   @Patch('/return-book/:id')
   @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    schema: {
+      type: 'object',
+      required: ['id', 'status', 'requesterName', 'requestedBook', 'createdAt'],
+      properties: {
+        id: {
+          type: 'string',
+        },
+        status: {
+          type: 'string',
+          enum: ['pending', 'reserved', 'rejected', 'returned'],
+        },
+        requesterName: {
+          type: 'string',
+        },
+        requestedBook: {
+          type: 'string',
+        },
+        createdAt: {
+          type: 'string',
+        },
+        updatedAt: {
+          type: 'string',
+        },
+        reservedAt: {
+          type: 'string',
+        },
+        returnedAt: {
+          type: 'string',
+        },
+        tags: {
+          type: 'array',
+          items: { type: 'string' },
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
   async returnBook(@Param('id') id: string) {
     try {
       return this.bookReservationUseCase.ReturnBook(id);
@@ -64,6 +172,68 @@ export class LibraryController {
   }
 
   @Get('my-requests/:name')
+  @ApiResponse({
+    schema: {
+      type: 'object',
+      required: [
+        'rows',
+        'count',
+        'requesterName',
+        'requestedBook',
+        'createdAt',
+      ],
+      properties: {
+        rows: {
+          type: 'array',
+          items: {
+            type: 'object',
+            required: [
+              'id',
+              'status',
+              'requesterName',
+              'requestedBook',
+              'createdAt',
+            ],
+            properties: {
+              id: {
+                type: 'string',
+              },
+              status: {
+                type: 'string',
+                enum: ['pending', 'reserved', 'rejected', 'returned'],
+              },
+              requesterName: {
+                type: 'string',
+              },
+              requestedBook: {
+                type: 'string',
+              },
+              createdAt: {
+                type: 'string',
+              },
+              updatedAt: {
+                type: 'string',
+              },
+              reservedAt: {
+                type: 'string',
+              },
+              returnedAt: {
+                type: 'string',
+              },
+              tags: {
+                type: 'array',
+                items: { type: 'string' },
+              },
+            },
+          },
+        },
+        count: {
+          type: 'number',
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
   async getMyRequests(@Param('name') name: string) {
     try {
       return this.bookRequestUseCase.getMyRequests(name);
