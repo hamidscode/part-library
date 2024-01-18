@@ -1,0 +1,837 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>part-library documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">part-library documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >LibraryController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/presentation/controllers/library.controller.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Prefix</h3>
+            </p>
+            <p class="comment">
+                <code>/</code>
+            </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getMyRequests" >getMyRequests</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getRequestById" >getRequestById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#request" >request</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#returnBook" >returnBook</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMyRequests"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getMyRequests</b></span>
+                        <a href="#getMyRequests"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMyRequests(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;my-requests/:name&#x27;)<br />@ApiResponse({schema: undefined, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="237"
+                                    class="link-to-prism">src/presentation/controllers/library.controller.ts:237</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRequestById"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getRequestById</b></span>
+                        <a href="#getRequestById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRequestById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;request/:id&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({schema: undefined, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/presentation/controllers/library.controller.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="request"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>request</b></span>
+                        <a href="#request"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>request(bookRequest: <a href="../classes/BookRequestDto.html" target="_self">BookRequestDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/request&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({schema: undefined, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/presentation/controllers/library.controller.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>bookRequest</td>
+                                            <td>
+                                                            <code><a href="../classes/BookRequestDto.html" target="_self" >BookRequestDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="returnBook"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>returnBook</b></span>
+                        <a href="#returnBook"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>returnBook(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Patch(&#x27;/return-book/:id&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({schema: undefined, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/presentation/controllers/library.controller.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiTags, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from &#x27;@nestjs/common&#x27;;
+import { BookRequestDto } from &#x27;presentation/DTOs&#x27;;
+import {
+  BookRequestUseCase,
+  BookReservationUseCase,
+} from &#x27;application/use-cases&#x27;;
+
+@ApiTags(&#x27;library&#x27;)
+@Controller(&#x27;/&#x27;)
+export class LibraryController {
+  constructor(
+    private readonly bookRequestUseCase: BookRequestUseCase,
+    private readonly bookReservationUseCase: BookReservationUseCase,
+  ) {}
+
+  @Post(&#x27;/request&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    schema: {
+      type: &#x27;object&#x27;,
+      required: [&#x27;id&#x27;, &#x27;status&#x27;, &#x27;requesterName&#x27;, &#x27;requestedBook&#x27;, &#x27;createdAt&#x27;],
+      properties: {
+        id: {
+          type: &#x27;string&#x27;,
+        },
+        status: {
+          type: &#x27;string&#x27;,
+          enum: [&#x27;pending&#x27;, &#x27;reserved&#x27;, &#x27;rejected&#x27;, &#x27;returned&#x27;],
+        },
+        requesterName: {
+          type: &#x27;string&#x27;,
+        },
+        requestedBook: {
+          type: &#x27;string&#x27;,
+        },
+        createdAt: {
+          type: &#x27;string&#x27;,
+        },
+        updatedAt: {
+          type: &#x27;string&#x27;,
+        },
+        tags: {
+          type: &#x27;array&#x27;,
+          items: { type: &#x27;string&#x27; },
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
+  async request(@Body() bookRequest: BookRequestDto) {
+    try {
+      return this.bookRequestUseCase.requestOneBook(bookRequest);
+    } catch (error) {
+      throw new HttpException(
+        (error.response ? error.response : error.message) ?? error,
+        error.status ?? HttpStatus.EXPECTATION_FAILED,
+      );
+    }
+  }
+
+  @Get(&#x27;request/:id&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    schema: {
+      type: &#x27;object&#x27;,
+      required: [&#x27;id&#x27;, &#x27;status&#x27;, &#x27;requesterName&#x27;, &#x27;requestedBook&#x27;, &#x27;createdAt&#x27;],
+      properties: {
+        id: {
+          type: &#x27;string&#x27;,
+        },
+        status: {
+          type: &#x27;string&#x27;,
+          enum: [&#x27;pending&#x27;, &#x27;reserved&#x27;, &#x27;rejected&#x27;, &#x27;returned&#x27;],
+        },
+        requesterName: {
+          type: &#x27;string&#x27;,
+        },
+        requestedBook: {
+          type: &#x27;string&#x27;,
+        },
+        createdAt: {
+          type: &#x27;string&#x27;,
+        },
+        updatedAt: {
+          type: &#x27;string&#x27;,
+        },
+        reservedAt: {
+          type: &#x27;string&#x27;,
+        },
+        returnedAt: {
+          type: &#x27;string&#x27;,
+        },
+        tags: {
+          type: &#x27;array&#x27;,
+          items: { type: &#x27;string&#x27; },
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
+  async getRequestById(@Param(&#x27;id&#x27;) id: string) {
+    try {
+      return this.bookRequestUseCase.getRequestById(id);
+    } catch (error) {
+      throw new HttpException(
+        (error.response ? error.response : error.message) ?? error,
+        error.status ?? HttpStatus.EXPECTATION_FAILED,
+      );
+    }
+  }
+
+  @Patch(&#x27;/return-book/:id&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    schema: {
+      type: &#x27;object&#x27;,
+      required: [&#x27;id&#x27;, &#x27;status&#x27;, &#x27;requesterName&#x27;, &#x27;requestedBook&#x27;, &#x27;createdAt&#x27;],
+      properties: {
+        id: {
+          type: &#x27;string&#x27;,
+        },
+        status: {
+          type: &#x27;string&#x27;,
+          enum: [&#x27;pending&#x27;, &#x27;reserved&#x27;, &#x27;rejected&#x27;, &#x27;returned&#x27;],
+        },
+        requesterName: {
+          type: &#x27;string&#x27;,
+        },
+        requestedBook: {
+          type: &#x27;string&#x27;,
+        },
+        createdAt: {
+          type: &#x27;string&#x27;,
+        },
+        updatedAt: {
+          type: &#x27;string&#x27;,
+        },
+        reservedAt: {
+          type: &#x27;string&#x27;,
+        },
+        returnedAt: {
+          type: &#x27;string&#x27;,
+        },
+        tags: {
+          type: &#x27;array&#x27;,
+          items: { type: &#x27;string&#x27; },
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
+  async returnBook(@Param(&#x27;id&#x27;) id: string) {
+    try {
+      return this.bookReservationUseCase.ReturnBook(id);
+    } catch (error) {
+      throw new HttpException(
+        (error.response ? error.response : error.message) ?? error,
+        error.status ?? HttpStatus.EXPECTATION_FAILED,
+      );
+    }
+  }
+
+  @Get(&#x27;my-requests/:name&#x27;)
+  @ApiResponse({
+    schema: {
+      type: &#x27;object&#x27;,
+      required: [
+        &#x27;rows&#x27;,
+        &#x27;count&#x27;,
+        &#x27;requesterName&#x27;,
+        &#x27;requestedBook&#x27;,
+        &#x27;createdAt&#x27;,
+      ],
+      properties: {
+        rows: {
+          type: &#x27;array&#x27;,
+          items: {
+            type: &#x27;object&#x27;,
+            required: [
+              &#x27;id&#x27;,
+              &#x27;status&#x27;,
+              &#x27;requesterName&#x27;,
+              &#x27;requestedBook&#x27;,
+              &#x27;createdAt&#x27;,
+            ],
+            properties: {
+              id: {
+                type: &#x27;string&#x27;,
+              },
+              status: {
+                type: &#x27;string&#x27;,
+                enum: [&#x27;pending&#x27;, &#x27;reserved&#x27;, &#x27;rejected&#x27;, &#x27;returned&#x27;],
+              },
+              requesterName: {
+                type: &#x27;string&#x27;,
+              },
+              requestedBook: {
+                type: &#x27;string&#x27;,
+              },
+              createdAt: {
+                type: &#x27;string&#x27;,
+              },
+              updatedAt: {
+                type: &#x27;string&#x27;,
+              },
+              reservedAt: {
+                type: &#x27;string&#x27;,
+              },
+              returnedAt: {
+                type: &#x27;string&#x27;,
+              },
+              tags: {
+                type: &#x27;array&#x27;,
+                items: { type: &#x27;string&#x27; },
+              },
+            },
+          },
+        },
+        count: {
+          type: &#x27;number&#x27;,
+        },
+      },
+    },
+    status: HttpStatus.OK,
+  })
+  async getMyRequests(@Param(&#x27;name&#x27;) name: string) {
+    try {
+      return this.bookRequestUseCase.getMyRequests(name);
+    } catch (error) {
+      throw new HttpException(
+        (error.response ? error.response : error.message) ?? error,
+        error.status ?? HttpStatus.EXPECTATION_FAILED,
+      );
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'LibraryController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

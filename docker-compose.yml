@@ -43,7 +43,7 @@ services:
     networks:
       - part-library
     ports:
-      - "8080:8080"
+      - "9999:8080"
     environment:
       DOZZLE_LEVEL: debug
     volumes:
