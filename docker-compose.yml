@@ -72,6 +72,37 @@ services:
       MONGO_DB: "reservation"
       MONGO_HOST: "mongo:27017"
       MONGO_QUERY: "authSource=admin"
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
+      RMQ_HOST: rabbitmq
+      RMQ_PORT: "5672"
+      RMQ_USERNAME: "admin"
+      RMQ_PASSWORD: "admin"
+
+  process-service:
+    image: part-process-service
+    build:
+      context: ./process-service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - part-library
+    depends_on:
+      - redis
+      - rabbitmq
+    environment:
+      DEBUG: "true"
+      NODE_ENV: "development"
+      ENV_FILES: "false"
+      LOG_DEBUG: "*"
+      LOG_LEVEL: "trace"
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
+      RMQ_HOST: rabbitmq
+      RMQ_PORT: "5672"
+      RMQ_USERNAME: "admin"
+      RMQ_PASSWORD: "admin"
 
 volumes:
   mongo_volume:
