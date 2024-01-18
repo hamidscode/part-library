@@ -8,6 +8,9 @@ import {
 } from 'application/services';
 import { ProcessBookProxy } from 'application/services/proxies';
 import { ReservationStatusEnum } from 'infrastructure/enum';
+import { InjectQueue } from '@nestjs/bull';
+import { REQUEST_FAILED_QUEUE } from 'infrastructure/constants';
+import { Queue } from 'bull';
 
 @Injectable()
 export class BookReservationUseCase {
@@ -15,9 +18,18 @@ export class BookReservationUseCase {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly processBookProxy: ProcessBookProxy,
+    @InjectQueue(REQUEST_FAILED_QUEUE)
+    private readonly retryQueue: Queue,
   ) {}
 
   async ReserveOneBook(bookProcessResult: BookProcessResultInterface) {
+    try {
+      (await this.retryQueue.getJob(bookProcessResult.id))
+        .remove()
+        .then()
+        .catch();
+    } catch {}
+
     const bookRequest = await this.queryBus.execute<
       GetBookRequestQuery,
       BookRequestEntity
@@ -26,14 +38,16 @@ export class BookReservationUseCase {
         id: bookProcessResult.id,
       }),
     );
-    let newStatus = ReservationStatusEnum.Rejected;
-    if (bookProcessResult.exists) {
-      newStatus = ReservationStatusEnum.Reserved;
+
+    if (bookRequest) {
+      let newStatus = ReservationStatusEnum.Rejected;
+      if (bookProcessResult.exists) {
+        newStatus = ReservationStatusEnum.Reserved;
+      }
+      await this.commandBus.execute(
+        new ChangeBookRequestStatusCommand(bookRequest, newStatus, false),
+      );
     }
-    const result = await this.commandBus.execute(
-      new ChangeBookRequestStatusCommand(bookRequest, newStatus),
-    );
-    return result;
   }
 
   async ReturnBook(id: string) {

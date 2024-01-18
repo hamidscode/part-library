@@ -1,4 +1,4 @@
-import { BookRequestInterface } from "./book-request.interface";
+import { BookRequestInterface } from './book-request.interface';
 
 export interface BookProcessResultInterface extends BookRequestInterface {
   exists: boolean;

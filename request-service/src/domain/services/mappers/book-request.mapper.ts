@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { BookRequestEntity, BookRequestSchema } from "domain/models";
-import { BaseMapper } from "./base.mapper";
-import { Types } from "mongoose";
-import { BookRequestInterface } from "infrastructure/interfaces";
-import { ReservationStatusEnum } from "infrastructure/enum";
+import { Injectable } from '@nestjs/common';
+import { BookRequestEntity, BookRequestSchema } from 'domain/models';
+import { BaseMapper } from './base.mapper';
+import { Types } from 'mongoose';
+import { BookRequestInterface } from 'infrastructure/interfaces';
+import { ReservationStatusEnum } from 'infrastructure/enum';
 
 @Injectable()
 export class BookRequestMapper

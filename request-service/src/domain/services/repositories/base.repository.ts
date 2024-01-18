@@ -1,6 +1,6 @@
 import { BaseEntity, BaseSchema } from 'domain/models';
 import { BaseMapper } from '../mappers';
-import { FilterQuery, Model, Types } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { FilterType, findAndCountAll } from 'infrastructure/database';
 import { OrderEnum } from 'infrastructure/enum';
 

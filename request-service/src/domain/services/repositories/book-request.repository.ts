@@ -5,6 +5,7 @@ import { BookRequestSchema, BookRequestEntity } from 'domain/models';
 import { BaseRepository } from './base.repository';
 import { BookRequestMapper } from '../mappers';
 import { findAndCountAll } from 'infrastructure/database';
+import { ReservationStatusEnum } from 'infrastructure/enum';
 
 @Injectable()
 export class BookRequestRepository extends BaseRepository<
@@ -52,10 +53,12 @@ export class BookRequestRepository extends BaseRepository<
   async findOneRequest(
     requestedBook: string,
     requesterName: string,
+    status?: ReservationStatusEnum,
   ): Promise<BookRequestEntity> {
     const where: FilterQuery<BookRequestSchema> = {};
     where['requested_book'] = requestedBook;
     where['requester_name'] = requesterName;
+    if (status) where['status'] = status;
 
     return super.findOne(where);
   }

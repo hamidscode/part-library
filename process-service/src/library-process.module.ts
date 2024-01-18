@@ -5,9 +5,10 @@ import {
   LIBRARY_REQUEST_SERVICE,
   PROCESS_RESULT_QUEUE,
 } from 'common/constants';
-import { createClient } from 'redis';
+import { createClient, RedisClientType } from 'redis';
 import { RedisConfig, RMQ_CONFIG } from 'common/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { LockUtil } from 'common/utils';
 
 @Module({
   imports: [
@@ -40,6 +41,18 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             }
             return client;
           },
+        },
+      ],
+    },
+    {
+      global: true,
+      module: Object,
+      exports: ['LOCK_MODULE'],
+      providers: [
+        {
+          inject: ['REDIS_MODULE'],
+          provide: 'LOCK_MODULE',
+          useFactory: (redis: RedisClientType) => new LockUtil(redis, 'ExLock'),
         },
       ],
     },

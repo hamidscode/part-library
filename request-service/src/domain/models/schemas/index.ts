@@ -11,4 +11,4 @@ export const schemas: ModelDefinition[] = [
     schema: BookRequestSchema.getSchema(),
     collection: 'book_requests',
   },
-]
+];

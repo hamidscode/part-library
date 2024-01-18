@@ -3,16 +3,24 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { controllers } from 'presentation/controllers';
 import { MongooseModule } from '@nestjs/mongoose';
 import { schemas } from 'domain/models';
-import { mongoConfig, RMQ_CONFIG } from 'infrastructure/config';
+import { mongoConfig, REDIS_OPTIONS, RMQ_CONFIG } from 'infrastructure/config';
 import { factories, mappers, repositories } from 'domain/services';
-import { commandHandlers, proxies, queryHandlers, events } from 'application/services';
+import {
+  commandHandlers,
+  proxies,
+  queryHandlers,
+  events,
+  jobs,
+} from 'application/services';
 import { useCases } from 'application/use-cases';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import {
   LIBRARY_PROCESS_SERVICE,
   PROCESS_QUEUE,
+  REQUEST_FAILED_QUEUE,
 } from 'infrastructure/constants';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -31,6 +39,19 @@ import {
     }),
     MongooseModule.forFeature(schemas),
     CqrsModule.forRoot(),
+    BullModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        redis: REDIS_OPTIONS(configService),
+        defaultJobOptions: {
+          removeOnComplete: true,
+          removeOnFail: false,
+        },
+      }),
+    }),
+    BullModule.registerQueue({
+      name: REQUEST_FAILED_QUEUE,
+    }),
     ClientsModule.register([
       {
         name: LIBRARY_PROCESS_SERVICE,
@@ -55,6 +76,7 @@ import {
     ...proxies,
     ...queryHandlers,
     ...events,
+    ...jobs,
   ],
 })
 export class LibraryModule {}

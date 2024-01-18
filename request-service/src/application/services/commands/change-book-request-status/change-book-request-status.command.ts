@@ -5,5 +5,6 @@ export class ChangeBookRequestStatusCommand {
   constructor(
     public bookRequestEntity: BookRequestEntity,
     public status: ReservationStatusEnum,
+    public throeError = true,
   ) {}
 }

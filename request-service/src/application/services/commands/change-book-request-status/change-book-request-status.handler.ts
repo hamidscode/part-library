@@ -39,8 +39,14 @@ export class ChangeBookRequestStatusHandler
   async execute({
     bookRequestEntity,
     status,
+    throeError,
   }: ChangeBookRequestStatusCommand): Promise<BookRequestEntity> {
-    this.checkBookRequestStatus(bookRequestEntity, status);
+    try {
+      this.checkBookRequestStatus(bookRequestEntity, status);
+    } catch (error) {
+      if (throeError) throw error;
+      return;
+    }
     bookRequestEntity.status = status;
     if (status === ReservationStatusEnum.Returned) {
       bookRequestEntity.returnedAt = new Date();
